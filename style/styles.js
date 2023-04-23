@@ -27,6 +27,10 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		textAlign: 'center',
 	},
+	underline: {
+		borderBottomColor: onPrimaryColor,
+		borderBottomWidth: 2,
+	},
 	card: {
 		margin: 10,
 		padding: 10,
@@ -161,7 +165,7 @@ const styles = StyleSheet.create({
 		color: onPrimaryColor,
 		textShadowColor: 'rgba(0, 0, 0, 0.75)',
 		textShadowRadius: 10,
-		fontWeight: 'bold',
+		fontWeight: '500',
 		padding: 10,
 	},
 	textStyleDark: {

@@ -11,3 +11,10 @@ export const changeFavoriteEvent = (meetup) => {
 		payload: meetup,
 	};
 };
+
+export const setSelectedRoute = (meetup) => {
+	return {
+		type: 'SET_SELECTED_ROUTE',
+		payload: meetup,
+	};
+};

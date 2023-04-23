@@ -9,14 +9,15 @@ import Header from '../widgets/Header.js';
 import { SizedBox } from 'sizedbox';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMeetupEvent } from '../../redux/events/meetupEvents.js';
+import { addMeetupEvent } from '../../redux/events/meetup_events.js';
 import { TextInput } from '@react-native-material/core';
+import Footer from '../widgets/Footer.js';
 
 const HomeScreen = (router) => {
 	const { navigation } = router;
 	const [showModal, setShowModal] = useState(false);
 
-	const meetups = useSelector((state) => state.meetups);
+	const { meetups } = useSelector((state) => state.meetups);
 	const dispatch = useDispatch();
 
 	const handleAddMeetup = (team) => {
@@ -46,26 +47,56 @@ const HomeScreen = (router) => {
 			<View style={style.addNewContainer}>
 				<View style={style.addNewMeetupTitle}>
 					<Text style={style.addNewMeetupTitleText}>ADD MEETUP</Text>
-					<Ionicons name="close-circle-sharp" size={40} style={style.closeModalButton} color={style.cardTitle} onPress={() => setShowModal(false)} />
+					<Ionicons
+						name='close-circle-sharp'
+						size={40}
+						style={style.closeModalButton}
+						color={style.cardTitle}
+						onPress={() => setShowModal(false)}
+					/>
 				</View>
 
-				<TextInput onChangeText={handleChange('title')} label="Title" variant="standard" color={style.primaryColor} onBlur={handleBlur('title')} value={values.title} />
+				<TextInput
+					onChangeText={handleChange('title')}
+					label='Title'
+					variant='standard'
+					color={style.primaryColor}
+					onBlur={handleBlur('title')}
+					value={values.title}
+				/>
 
 				{errors.title === undefined ? <SizedBox vertical={20} /> : null}
 				{errors.title !== undefined ? <Text style={style.error}>{errors.title}</Text> : null}
 
-				<TextInput onChangeText={handleChange('address')} label="Address" variant="standard" color={style.primaryColor} onBlur={handleBlur('address')} value={values.address} />
+				<TextInput
+					onChangeText={handleChange('address')}
+					label='Address'
+					variant='standard'
+					color={style.primaryColor}
+					onBlur={handleBlur('address')}
+					value={values.address}
+				/>
 
 				{errors.address === undefined ? <SizedBox vertical={20} /> : null}
 				{errors.address !== undefined ? <Text style={style.error}>{errors.address}</Text> : null}
 
-				<TextInput onChangeText={handleChange('description')} label="Description" variant="standard" color={style.primaryColor} onBlur={handleBlur('description')} value={values.description} />
+				<TextInput
+					onChangeText={handleChange('description')}
+					label='Description'
+					variant='standard'
+					color={style.primaryColor}
+					onBlur={handleBlur('description')}
+					value={values.description}
+				/>
 
 				{errors.description === undefined ? <SizedBox vertical={20} /> : null}
 				{errors.description !== undefined ? <Text style={style.error}>{errors.description}</Text> : null}
 
 				<SizedBox vertical={20} />
-				<CustomButton onPress={handleSumbitForm} text="Create Meetup" />
+				<CustomButton
+					onPress={handleSumbitForm}
+					text='Create Meetup'
+				/>
 			</View>
 		);
 	};
@@ -74,18 +105,47 @@ const HomeScreen = (router) => {
 
 	return (
 		<>
-			<Modal animationType="slide" visible={showModal} onRequestClose={() => setShowModal(!showModal)}>
+			<Modal
+				animationType='slide'
+				visible={showModal}
+				onRequestClose={() => setShowModal(!showModal)}>
 				<View style={style.container}>
-					<Formik initialValues={initialValueFormik} validateOnMount={false} validationSchema={validateData} onSubmit={handleAddMeetup} children={textFields} />
+					<Formik
+						initialValues={initialValueFormik}
+						validateOnMount={false}
+						validationSchema={validateData}
+						onSubmit={handleAddMeetup}
+						children={textFields}
+					/>
 				</View>
 			</Modal>
-			<Header title={'All meetups'} navigation={navigation} />
+			<Header
+				title={'All meetups'}
+				navigation={navigation}
+			/>
 			<View style={style.container}>
 				<View style={style.overzichtList}>
-					<FlatList data={meetups} numColumns={2} renderItem={({ index, item }) => <MeetupCard key={index} meetup={item} navigation={navigation} />} />
+					<FlatList
+						data={meetups}
+						numColumns={2}
+						renderItem={({ index, item }) => (
+							<MeetupCard
+								key={index}
+								meetup={item}
+								navigation={navigation}
+							/>
+						)}
+					/>
 				</View>
 			</View>
-			<Ionicons name="add-circle-outline" size={60} color={style.cardTitle} style={style.addButton} onPress={() => setShowModal(true)} />
+			<Ionicons
+				name='add-circle-outline'
+				size={60}
+				color={style.cardTitle}
+				style={style.addButton}
+				onPress={() => setShowModal(true)}
+			/>
+			<Footer navigation={navigation} />
 		</>
 	);
 };
